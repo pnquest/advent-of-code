@@ -1,22 +1,29 @@
 ﻿// See https://aka.ms/new-console-template for more information
 namespace Day2;
 
+internal record struct Move(string Direction, int Distance);
+
 public static class Program
 {
     public static void Main()
     {
-        IEnumerable<(string Direction, int Distance)>? moves = File.ReadAllLines("./input.txt").Select(l => l.Split(" ")).Select(a => (a[0], int.Parse(a[1]))).ToList();
+        IEnumerable<Move>? moves = File
+            .ReadAllLines("./input.txt")
+            .Select(l => l.Split(" "))
+            .Select(a => new Move(a[0], int.Parse(a[1])))
+            .ToList();
+
         Part1(moves);
         Part2(moves);
     }
 
-    private static void Part2(IEnumerable<(string Direction, int Distance)> moves)
+    private static void Part2(IEnumerable<Move> moves)
     {
         int horizontal = 0;
         int vertical = 0;
         int aim = 0;
 
-        foreach (var move in moves)
+        foreach (Move move in moves)
         {
             switch (move.Direction)
             {
@@ -38,12 +45,12 @@ public static class Program
         Console.WriteLine($"Part 2: {vertical * horizontal}");
     }
 
-    private static void Part1(IEnumerable<(string Direction, int Distance)> moves)
+    private static void Part1(IEnumerable<Move> moves)
     {
         int horizontal = 0;
         int vertical = 0;
 
-        foreach (var move in moves)
+        foreach (Move move in moves)
         {
             switch (move.Direction)
             {

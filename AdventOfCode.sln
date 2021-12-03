@@ -7,9 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day1", "2021\Day1\Day1.cspr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2021", "2021", "{F79082C0-8708-4BFA-8374-12E2BDAF724E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day2", "2021\Day2\Day2.csproj", "{D15E0974-ADDE-4344-BC25-A07C2DB87373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day2", "2021\Day2\Day2.csproj", "{D15E0974-ADDE-4344-BC25-A07C2DB87373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day3", "2021\Day3\Day3.csproj", "{8C71EF47-6EC0-440F-AA31-7DBF08BBF647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day3", "2021\Day3\Day3.csproj", "{8C71EF47-6EC0-440F-AA31-7DBF08BBF647}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6EC12A42-D7C9-48D6-B7AA-B4F44E6E2D16}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
