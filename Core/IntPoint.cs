@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Core;
 
-namespace Core;
-
-public record struct Point(int X, int Y)
+public record struct IntPoint(int X, int Y)
 {
-    public static Orientation GetOrientation(Point p1, Point p2, Point p3)
+    public static Orientation GetOrientation(IntPoint p1, IntPoint p2, IntPoint p3)
     {
         int val = (p2.Y - p1.Y) * (p3.X - p2.X) - (p2.X - p1.X) * (p3.Y - p2.Y);
 

@@ -31,7 +31,8 @@ public static class Program
 
     private static int CalculateEscalatingFuelCost(int curPosition, int targetPosition)
     {
-        return Enumerable.Range(0, Math.Abs(targetPosition - curPosition) + 1).Sum();
+        int diff = Math.Abs(targetPosition - curPosition);
+        return diff * (diff + 1) / 2;
     }
 
     private static void Part1(int[] crabs)
