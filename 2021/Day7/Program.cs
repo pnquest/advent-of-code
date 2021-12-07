@@ -11,29 +11,22 @@ public static class Program
 
     private static void Part2(int[] crabs)
     {
-        int minVal = crabs.Min();
-        int maxVal = crabs.Max();
+        double average = crabs.Average();
 
-        int curBest = minVal;
-        int curCost = int.MaxValue;
+        int high = (int)Math.Ceiling(average);
+        int highSum = crabs.Sum(c => CalculateEscalatingFuelCost(c, high));
 
-        for (int i = minVal; i <= maxVal; i++)
+        int low = (int)Math.Floor(average);
+        int lowSum = crabs.Sum(c => CalculateEscalatingFuelCost(c, low));
+
+        if(highSum < lowSum)
         {
-            int cost = crabs.Select(c => CalculateEscalatingFuelCost(c, i)).Sum();
-
-            //if the cost has improved, it is the new best. If we have started getting worse, we have already found the answer, so break.
-            if (cost < curCost)
-            {
-                curBest = i;
-                curCost = cost;
-            }
-            else
-            {
-                break;
-            }
+            Console.WriteLine($"Part 2: Best Target {high}; Cost: {highSum}");
         }
-
-        Console.WriteLine($"Part 2: Best Position {curBest}; Best Cost: {curCost}");
+        else
+        {
+            Console.WriteLine($"Part 2: Best Target {low}; Cost: {lowSum}");
+        }
     }
 
     private static int CalculateEscalatingFuelCost(int curPosition, int targetPosition)
