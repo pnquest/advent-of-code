@@ -16,7 +16,7 @@ public static class Program
                     .Select((c, i) => c.ToCharArray().Select(c => c - '0').Select((c, j) => new Height { Value = c, Location = new IntPoint(j, i) }).ToArray()).ToArray();
         CalculateLowPoints(map);
 
-        Span<int> lookAround = stackalloc int[] { -1, 0, 1 };
+        Span<IntSlope> slopes = stackalloc IntSlope[] { new IntSlope(-1, 0), new IntSlope(1, 0), new IntSlope(0, -1), new IntSlope(0, 1) };
         List<int> basinSizes = new();
         HashSet<IntPoint> alreadyAdded = new();
         for (int i = 0; i < map.Length; i++)
@@ -38,22 +38,18 @@ public static class Program
                     {
                         Height curPoint = points.Pop();
 
-                        foreach(int lookX in lookAround)
+                        foreach(IntSlope slope in slopes)
                         {
-                            foreach(int lookY in lookAround)
+                            IntPoint newPoint = curPoint.Location + slope;
+
+                            if (newPoint.Y >= 0 && newPoint.Y < map.Length && newPoint.X >= 0 && newPoint.X < map[newPoint.Y].Length)
                             {
-                                int newX = curPoint.Location.X + lookX;
-                                int newY = curPoint.Location.Y + lookY;
+                                Height neighbor = map[newPoint.Y][newPoint.X];
 
-                                if((lookX == 0 || lookY == 0) && newY >= 0 && newY < map.Length && newX >= 0 && newX < map[newY].Length && (newX != curPoint.Location.X || newY != curPoint.Location.Y))
+                                if (neighbor.Value != 9 && alreadyAdded.Add(neighbor.Location))
                                 {
-                                    Height neighbor = map[newY][newX];
-
-                                    if(neighbor.Value != 9 && alreadyAdded.Add(neighbor.Location))
-                                    {
-                                        basinSize++;
-                                        points.Push(neighbor);
-                                    }
+                                    basinSize++;
+                                    points.Push(neighbor);
                                 }
                             }
                         }
@@ -82,7 +78,7 @@ public static class Program
 
     private static void CalculateLowPoints(Height[][] map)
     {
-        Span<int> lookAround = stackalloc int[] { -1, 0, 1 };
+        Span<IntSlope> slopes = stackalloc IntSlope[] { new IntSlope(-1, 0), new IntSlope(1, 0), new IntSlope(0, -1), new IntSlope(0, 1) };
 
         for (int i = 0; i < map.Length; i++)
         {
@@ -91,26 +87,18 @@ public static class Program
                 bool isMin = true;
                 Height curVal = map[i][j];
 
-                foreach (int lookX in lookAround)
+                foreach(IntSlope slope in slopes)
                 {
-                    foreach (int lookY in lookAround)
-                    {
-                        int newX = i + lookX;
-                        int newY = j + lookY;
+                    int newX = j + slope.X;
+                    int newY = i + slope.Y;
 
-                        if ((lookX == 0 || lookY == 0) && newX >= 0 && newX < map.Length && newY >= 0 && newY < map[i].Length && (newX != i || newY != j))
+                    if (newY >= 0 && newY < map.Length && newX >= 0 && newX < map[newY].Length)
+                    {
+                        if (curVal.Value >= map[newY][newX].Value)
                         {
-                            if (curVal.Value > map[newX][newY].Value)
-                            {
-                                isMin = false;
-                                break;
-                            }
+                            isMin = false;
+                            break;
                         }
-                    }
-
-                    if (!isMin)
-                    {
-                        break;
                     }
                 }
 
