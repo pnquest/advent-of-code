@@ -113,8 +113,7 @@ internal class Octopus
 
     public bool RaiseLevel()
     {
-        int oldLevel = Level;
-        Level++;
+        int oldLevel = Level++;
         return oldLevel <= 9 && Level > 9;
     }
 
