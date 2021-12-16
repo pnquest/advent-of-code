@@ -1,4 +1,6 @@
-﻿namespace Core.Pathfinding;
+﻿using System.Numerics;
+
+namespace Core.Pathfinding;
 
 public class AStarPathFinder
 {
