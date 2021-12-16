@@ -16,16 +16,16 @@ public static class Program
         {
             int pick = picks.Dequeue();
 
-            if(boards.Count > 1)
+            if (boards.Count > 1)
             {
                 int winningBoards = boards.RemoveAll(b => b.MarkNumberAndCheckVictory(pick));
 
-                if(winningBoards > 0)
+                if (winningBoards > 0)
                 {
                     Console.WriteLine($"Removed {winningBoards} boards");
                 }
             }
-            else if(boards[0].MarkNumberAndCheckVictory(pick))
+            else if (boards[0].MarkNumberAndCheckVictory(pick))
             {
                 Console.WriteLine($"Part 2: {boards[0].ComputeScore()}");
                 return;
@@ -104,7 +104,7 @@ public static class Program
         {
             _board = new BoardSpace[5][];
 
-            for(int i = 0; i< 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 _board[i] = new BoardSpace[5];
             }
@@ -112,7 +112,7 @@ public static class Program
 
         public bool MarkNumberAndCheckVictory(int value)
         {
-            if(!_spaceDictionary.TryGetValue(value, out BoardPosition position))
+            if (!_spaceDictionary.TryGetValue(value, out BoardPosition position))
             {
                 return false;
             }
@@ -121,7 +121,7 @@ public static class Program
 
             _board[position.XPosition][position.YPosition].IsPicked = true;
 
-            if(_board[position.XPosition].All(position => position.IsPicked) || 
+            if (_board[position.XPosition].All(position => position.IsPicked) ||
                 Enumerable.Range(0, 5).Select(r => _board[r][position.YPosition]).All(p => p.IsPicked))
             {
                 return true;
@@ -148,7 +148,7 @@ public static class Program
             _board[_curX][_curY] = space;
             _spaceDictionary[value] = new BoardPosition(_curX, _curY);
 
-            if(_curX == 4)
+            if (_curX == 4)
             {
                 _curX = 0;
                 _curY++;

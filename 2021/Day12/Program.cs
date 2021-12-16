@@ -31,11 +31,11 @@ public static class Program
 
         Path? startPath = new(new(), new(), AllowDuplicate: allowDuplicates);
         (_, startPath) = startPath.TryAddCave(start);
-        if(startPath != null)
+        if (startPath != null)
         {
             paths.Push(startPath);
         }
-        
+
 
         while (paths.Count > 0)
         {
@@ -100,11 +100,11 @@ internal record Path(HashSet<Cave> SmallCavesVisited, List<Cave> PathCaves, bool
 
     public (AddResult, Path?) TryAddCave(Cave cave)
     {
-        if(!cave.IsSmall || !SmallCavesVisited.Contains(cave))
+        if (!cave.IsSmall || !SmallCavesVisited.Contains(cave))
         {
             return AddCave(cave, false);
         }
-        else if(AllowDuplicate && !cave.IsEnd && !cave.IsStart && !FirstSmallDuplicateExhausted)
+        else if (AllowDuplicate && !cave.IsEnd && !cave.IsStart && !FirstSmallDuplicateExhausted)
         {
             return AddCave(cave, true);
         }
@@ -117,12 +117,12 @@ internal record Path(HashSet<Cave> SmallCavesVisited, List<Cave> PathCaves, bool
         var pathCaves = PathCaves.ToList();
         pathCaves.Add(cave);
         var smallVisited = SmallCavesVisited.ToHashSet();
-        if(cave.IsSmall)
+        if (cave.IsSmall)
         {
             smallVisited.Add(cave);
         }
         Path cloned;
-        if(duplicateExhausted)
+        if (duplicateExhausted)
         {
             cloned = this with { PathCaves = pathCaves, SmallCavesVisited = smallVisited, FirstSmallDuplicateExhausted = true };
         }

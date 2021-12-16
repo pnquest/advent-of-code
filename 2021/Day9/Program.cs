@@ -23,22 +23,22 @@ public static class Program
         {
             for (int j = 0; j < map[i].Length; j++)
             {
-                if(map[i][j].IsLowPoint)
+                if (map[i][j].IsLowPoint)
                 {
                     int basinSize = 1;
-                    
+
                     Stack<Height> points = new Stack<Height>();
                     points.Push(map[i][j]);
-                    if(!alreadyAdded.Add(map[i][j].Location))
+                    if (!alreadyAdded.Add(map[i][j].Location))
                     {
                         continue;
                     }
 
-                    while(points.Count > 0)
+                    while (points.Count > 0)
                     {
                         Height curPoint = points.Pop();
 
-                        foreach(IntSlope slope in slopes)
+                        foreach (IntSlope slope in slopes)
                         {
                             IntPoint newPoint = curPoint.Location + slope;
 
@@ -87,7 +87,7 @@ public static class Program
                 bool isMin = true;
                 Height curVal = map[i][j];
 
-                foreach(IntSlope slope in slopes)
+                foreach (IntSlope slope in slopes)
                 {
                     int newX = j + slope.X;
                     int newY = i + slope.Y;

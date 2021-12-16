@@ -136,7 +136,7 @@ public static class Program
     {
         Segments segment = Segments.None;
 
-        foreach(char c in digit)
+        foreach (char c in digit)
         {
             segment |= segmentMap[c];
         }
@@ -161,7 +161,7 @@ public static class Program
             Segments.Top | Segments.TopLeft | Segments.Center | Segments.BottomLeft | Segments.BottomRight | Segments.Bottom => 6,
             Segments.Top | Segments.TopRight | Segments.BottomRight => 7,
             Segments.Top | Segments.TopRight | Segments.TopLeft | Segments.Center | Segments.BottomLeft | Segments.BottomRight | Segments.Bottom => 8,
-            Segments.Top | Segments.TopRight | Segments.TopLeft | Segments.Center  | Segments.BottomRight | Segments.Bottom => 9,
+            Segments.Top | Segments.TopRight | Segments.TopLeft | Segments.Center | Segments.BottomRight | Segments.Bottom => 9,
             _ => -1
         };
     }
@@ -182,29 +182,29 @@ public static class Program
     private static IEnumerable<Dictionary<char, Segments>> EnumeratePossibilities(Dictionary<char, Segments> input)
     {
         return from a in EnumerateSegments(input['a'])
-        from b in EnumerateSegments(input['b'])
-        from c in EnumerateSegments(input['c'])
-        from d in EnumerateSegments(input['d'])
-        from e in EnumerateSegments(input['e'])
-        from f in EnumerateSegments(input['f'])
-        from g in EnumerateSegments(input['g'])
-        where new[] { a, b, c, d, e, f, g }.Distinct().Count() == 7
-        select new Dictionary<char, Segments> {
-            ['a'] = a,
-            ['b'] = b,
-            ['c'] = c,
-            ['d'] = d,
-            ['e'] = e,
-            ['f'] = f,
-            ['g'] = g
-        };
+               from b in EnumerateSegments(input['b'])
+               from c in EnumerateSegments(input['c'])
+               from d in EnumerateSegments(input['d'])
+               from e in EnumerateSegments(input['e'])
+               from f in EnumerateSegments(input['f'])
+               from g in EnumerateSegments(input['g'])
+               where new[] { a, b, c, d, e, f, g }.Distinct().Count() == 7
+               select new Dictionary<char, Segments> {
+                   ['a'] = a,
+                   ['b'] = b,
+                   ['c'] = c,
+                   ['d'] = d,
+                   ['e'] = e,
+                   ['f'] = f,
+                   ['g'] = g
+               };
     }
 
     private static IEnumerable<Segments> EnumerateSegments(Segments input)
     {
-        foreach(Segments mask in Enum.GetValues<Segments>())
+        foreach (Segments mask in Enum.GetValues<Segments>())
         {
-            if((int)(input & mask) > 0)
+            if ((int)(input & mask) > 0)
             {
                 yield return mask;
             }

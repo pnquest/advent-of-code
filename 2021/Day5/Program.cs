@@ -41,7 +41,7 @@ public static class Program
         {
             IntSlope slope = line.GetSlope();
 
-           IntPoint cur = line.P1;
+            IntPoint cur = line.P1;
 
             while (cur != line.P2)
             {

@@ -7,8 +7,7 @@ public static class Program
     public static void Main()
     {
         int length = 0;
-        uint[] values = File.ReadAllLines("./input.txt").Select(s => 
-        {
+        uint[] values = File.ReadAllLines("./input.txt").Select(s => {
             length = s.Length;
             return Convert.ToUInt32(s, 2);
         }).ToArray();
@@ -40,9 +39,9 @@ public static class Program
 
                 uint toKeep;
 
-                if(mostCommon)
+                if (mostCommon)
                 {
-                    if(counter.Ones >= counter.Zeros)
+                    if (counter.Ones >= counter.Zeros)
                     {
                         toKeep = counter.Mask;
                     }
@@ -53,7 +52,7 @@ public static class Program
                 }
                 else
                 {
-                    if(counter.Ones < counter.Zeros)
+                    if (counter.Ones < counter.Zeros)
                     {
                         toKeep = counter.Mask;
                     }
@@ -62,7 +61,7 @@ public static class Program
                         toKeep = 0;
                     }
                 }
-                 
+
                 list.RemoveAll(v => (v & counter.Mask) != toKeep);
             }
             else
@@ -122,7 +121,7 @@ public static class Program
 
         public void CountValue(uint value)
         {
-            if(GetMaskedResult(value) != 0)
+            if (GetMaskedResult(value) != 0)
             {
                 Ones++;
             }
@@ -139,7 +138,7 @@ public static class Program
 
         public uint OutputMostCommon()
         {
-            return Ones >= Zeros 
+            return Ones >= Zeros
                 ? Mask
                 : 0;
         }

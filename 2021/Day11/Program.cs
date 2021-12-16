@@ -126,22 +126,22 @@ internal class Octopus
     {
         List<IntPoint> neighbors = new(8);
 
-        Span<IntSlope> slopes = stackalloc IntSlope[] { 
-            new IntSlope(-1, -1), 
-            new IntSlope(-1, 0), 
-            new IntSlope(-1, 1), 
-            new IntSlope(0, -1), 
-            new IntSlope(0, 1), 
-            new IntSlope(1, -1), 
-            new IntSlope(1, 0), 
-            new IntSlope(1, 1) 
+        Span<IntSlope> slopes = stackalloc IntSlope[] {
+            new IntSlope(-1, -1),
+            new IntSlope(-1, 0),
+            new IntSlope(-1, 1),
+            new IntSlope(0, -1),
+            new IntSlope(0, 1),
+            new IntSlope(1, -1),
+            new IntSlope(1, 0),
+            new IntSlope(1, 1)
         };
 
-        foreach(IntSlope slope in slopes)
+        foreach (IntSlope slope in slopes)
         {
             var potential = Position + slope;
 
-            if(potential.X >= 0 && potential.X < 10 && potential.Y >= 0 && potential.Y < 10)
+            if (potential.X >= 0 && potential.X < 10 && potential.Y >= 0 && potential.Y < 10)
             {
                 neighbors.Add(potential);
             }

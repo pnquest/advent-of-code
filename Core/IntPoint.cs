@@ -13,6 +13,67 @@ public record struct IntPoint(int X, int Y)
         };
     }
 
+    public int CalculateManhattenDistanceTo(IntPoint other)
+    {
+        return Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
+    }
+
+    public IEnumerable<IntPoint> GetNeighbors(int minX, int maxX, int minY, int maxY, bool includeDiagonals = false)
+    {
+        return includeDiagonals 
+            ? GetDiagonalNeighbors(minX, maxX, minY, maxY)
+            : GetOrthogonalNeighbors(minX, maxX, minY, maxY);
+    }
+
+    private IEnumerable<IntPoint> GetDiagonalNeighbors(int minX, int maxX, int minY, int maxY)
+    {
+        Span<IntSlope> slopes = stackalloc IntSlope[] {
+            new IntSlope(-1, -1), 
+            new IntSlope(-1, 0), 
+            new IntSlope(-1, 1), 
+            new IntSlope(0, -1), 
+            new IntSlope(0, 1), 
+            new IntSlope(1, -1),
+            new IntSlope(1, 0), 
+            new IntSlope(1, 1) };
+
+        List<IntPoint> neighbors = new();
+
+        for(int i = 0; i < slopes.Length; i++)
+        {
+            IntPoint candidate = this + slopes[i];
+            if(candidate.X >= minX && candidate.X <= maxX && candidate.Y >= minY && candidate.Y <= maxY)
+            {
+                neighbors.Add(candidate);
+            }
+        }
+
+        return neighbors;
+    }
+
+    private IEnumerable<IntPoint> GetOrthogonalNeighbors(int minX, int maxX, int minY, int maxY)
+    {
+        Span<IntSlope> slopes = stackalloc IntSlope[] {
+            new IntSlope(-1, 0),
+            new IntSlope(0, -1),
+            new IntSlope(0, 1),
+            new IntSlope(1, 0)
+        };
+
+        List<IntPoint> neighbors = new();
+
+        for (int i = 0; i < slopes.Length; i++)
+        {
+            IntPoint candidate = this + slopes[i];
+            if (candidate.X >= minX && candidate.X <= maxX && candidate.Y >= minY && candidate.Y <= maxY)
+            {
+                neighbors.Add(candidate);
+            }
+        }
+
+        return neighbors;
+    }
+
     public enum Orientation
     {
         Colinear,
@@ -20,3 +81,5 @@ public record struct IntPoint(int X, int Y)
         CouterClockwise
     }
 }
+
+internal record struct CacheKey(int Item1, int Item2, int Item3, int Item4);

@@ -16,16 +16,16 @@ public static class Program
         bool[][] bools;
         SetUpMapAndFolds(out foldInstructions, out bools);
 
-        foreach(FoldInstruction foldInstruction in foldInstructions)
+        foreach (FoldInstruction foldInstruction in foldInstructions)
         {
             ApplyFold(ref bools, foldInstruction);
         }
 
         Console.WriteLine("Part 2:");
-        foreach(bool[] line in bools)
+        foreach (bool[] line in bools)
         {
             Console.WriteLine();
-            foreach(bool col in line)
+            foreach (bool col in line)
             {
                 Console.Write(col ? '#' : '.');
             }
@@ -106,9 +106,9 @@ public static class Program
     {
         for (int y = index + 1; y < points.Length; y++)
         {
-            for(int x = 0; x < points[y].Length; x++)
+            for (int x = 0; x < points[y].Length; x++)
             {
-                if(points[y][x])
+                if (points[y][x])
                 {
                     int newY = index - (y - index);
                     points[newY][x] = true;
@@ -120,11 +120,11 @@ public static class Program
 
     private static void FoldAlongX(ref bool[][] points, int index)
     {
-        for(int y = 0; y < points.Length; y++)
+        for (int y = 0; y < points.Length; y++)
         {
-            for(int i = index + 1; i < points[y].Length; i++)
+            for (int i = index + 1; i < points[y].Length; i++)
             {
-                if(points[y][i])
+                if (points[y][i])
                 {
                     int newIndex = index - (i - index);
                     points[y][newIndex] = true;

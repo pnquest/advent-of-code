@@ -15,21 +15,21 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
         IntPoint.Orientation o3 = IntPoint.GetOrientation(other.P1, other.P2, P1);
         IntPoint.Orientation o4 = IntPoint.GetOrientation(other.P1, other.P2, P2);
 
-        if(o1 != o2 && o3 != o4)
+        if (o1 != o2 && o3 != o4)
         {
             IntPoint? intersect = GetIntersect(other);
-            if(intersect != null)
+            if (intersect != null)
             {
                 yield return intersect.Value;
             }
         }
-        else if(o1 == IntPoint.Orientation.Colinear && IsOnSegment(other.P1))
+        else if (o1 == IntPoint.Orientation.Colinear && IsOnSegment(other.P1))
         {
             IntSlope slp = other.GetSlope();
             IntPoint? cur = null;
             do
             {
-                if(cur== null)
+                if (cur == null)
                 {
                     cur = other.P1;
                 }
@@ -38,7 +38,7 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
                     cur = cur + slp;
                 }
 
-                if(IsOnSegment(cur.Value))
+                if (IsOnSegment(cur.Value))
                 {
                     yield return cur.Value;
                 }
@@ -48,7 +48,7 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
                 }
             } while (cur != other.P2);
         }
-        else if(o2 == IntPoint.Orientation.Colinear && IsOnSegment(other.P2))
+        else if (o2 == IntPoint.Orientation.Colinear && IsOnSegment(other.P2))
         {
             IntSlope slp = other.GetSlope();
             IntPoint? cur = null;
@@ -73,7 +73,7 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
                 }
             } while (cur != other.P1);
         }
-        else if(o3 == IntPoint.Orientation.Colinear && other.IsOnSegment(P1))
+        else if (o3 == IntPoint.Orientation.Colinear && other.IsOnSegment(P1))
         {
             IntSlope slp = GetSlope();
             IntPoint? cur = null;
@@ -98,7 +98,7 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
                 }
             } while (cur != P2);
         }
-        else if(o4 == IntPoint.Orientation.Colinear && other.IsOnSegment(P2))
+        else if (o4 == IntPoint.Orientation.Colinear && other.IsOnSegment(P2))
         {
             IntSlope slp = GetSlope();
             IntPoint? cur = null;
@@ -130,12 +130,12 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
         int tempX = P2.X - P1.X;
         int tempY = P2.Y - P1.Y;
 
-        if(tempX == 0 )
+        if (tempX == 0)
         {
             return new IntSlope(0, tempY > 0 ? 1 : -1);
         }
 
-        if(tempY == 0)
+        if (tempY == 0)
         {
             return new IntSlope(tempX > 0 ? 1 : -1, 0);
         }
@@ -186,9 +186,9 @@ public record struct IntLineSegment(IntPoint P1, IntPoint P2)
         //which would get truncated to x,y.
         //So we need to fully check again that the result point is colinear with and within the range of both lines.
 
-        if(IntPoint.GetOrientation(P1, P2, canditdate) == IntPoint.Orientation.Colinear 
-            && IsOnSegment(canditdate) 
-            && IntPoint.GetOrientation(other.P1, other.P2, canditdate) == IntPoint.Orientation.Colinear 
+        if (IntPoint.GetOrientation(P1, P2, canditdate) == IntPoint.Orientation.Colinear
+            && IsOnSegment(canditdate)
+            && IntPoint.GetOrientation(other.P1, other.P2, canditdate) == IntPoint.Orientation.Colinear
             && other.IsOnSegment(canditdate))
         {
             return new IntPoint(intX, intY);

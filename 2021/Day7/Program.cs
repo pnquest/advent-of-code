@@ -19,7 +19,7 @@ public static class Program
         int low = (int)Math.Floor(average);
         int lowSum = crabs.Sum(c => CalculateEscalatingFuelCost(c, low));
 
-        if(highSum < lowSum)
+        if (highSum < lowSum)
         {
             Console.WriteLine($"Part 2: Best Target {high}; Cost: {highSum}");
         }
