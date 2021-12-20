@@ -27,7 +27,7 @@ public record struct IntPoint(int X, int Y)
 
     private IEnumerable<IntPoint> GetDiagonalNeighbors(int minX, int maxX, int minY, int maxY)
     {
-        Span<IntSlope> slopes = stackalloc IntSlope[] {
+        ReadOnlySpan<IntSlope> slopes = stackalloc IntSlope[] {
             new IntSlope(-1, -1), 
             new IntSlope(-1, 0), 
             new IntSlope(-1, 1), 
@@ -53,7 +53,7 @@ public record struct IntPoint(int X, int Y)
 
     private IEnumerable<IntPoint> GetOrthogonalNeighbors(int minX, int maxX, int minY, int maxY)
     {
-        Span<IntSlope> slopes = stackalloc IntSlope[] {
+        ReadOnlySpan<IntSlope> slopes = stackalloc IntSlope[] {
             new IntSlope(-1, 0),
             new IntSlope(0, -1),
             new IntSlope(0, 1),
