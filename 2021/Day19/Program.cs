@@ -24,6 +24,7 @@ public static class Program
         while (pinned.Count > 0 && scanners.Any(s => !s.IsPinned))
         {
             Scanner curPinned = pinned.Pop();
+
             Enumerable.Range(0, scanners.Count)
                 .AsParallel()
                 .ForAll(i => MatchOrientation(scanners, pinned, curPinned, i));
@@ -166,27 +167,50 @@ internal record Scanner(List<Vector3> Beacons, Vector3 ScannerPosition = new Vec
         return this with { Beacons = Beacons.Select(b => Vector3.Transform(b, transform)).ToList() };
     }
 
-    public IEnumerable<Scanner> IterateOrientations()
+    static Scanner()
     {
-        int[] angles = new int[] { 0, 90, 180, 270 };
+        _roationCache = new Lazy<List<Quaternion>>(InnitRotations);
+    }
 
-        foreach(int x in angles)
+    private static Lazy<List<Quaternion>> _roationCache;
+    private static List<Quaternion> InnitRotations()
+    {
+        HashSet<Vector3> distinctVectors = new();
+        List<Quaternion> result = new();
+        Vector3 testVector = new Vector3(1, 2, 3);
+        int[] angles = new int[] { 0, 90, 180, 270 };
+        foreach (int x in angles)
         {
             Quaternion rotX = Quaternion.CreateFromAxisAngle(Vector3.UnitX, x * (float)Math.PI / 180);
-            foreach(int y in angles)
+            foreach (int y in angles)
             {
                 Quaternion rotY = rotX * Quaternion.CreateFromAxisAngle(Vector3.UnitY, y * (float)Math.PI / 180);
                 foreach (int z in angles)
                 {
                     Quaternion rotZ = rotY * Quaternion.CreateFromAxisAngle(Vector3.UnitZ, z * (float)Math.PI / 180);
-                    yield return this with {
-                        Beacons = Beacons
-                            .Select(z => Vector3.Transform(z, rotZ))
-                            .Select(x => new Vector3(MathF.Round(x.X, 0, MidpointRounding.AwayFromZero), MathF.Round(x.Y, 0, MidpointRounding.AwayFromZero), MathF.Round(x.Z, 0, MidpointRounding.AwayFromZero)))
-                            .ToList()
-                    };
+                    Vector3 rotated = Vector3.Transform(testVector, rotZ);
+                    rotated = new Vector3(MathF.Round(rotated.X, 0, MidpointRounding.AwayFromZero), MathF.Round(rotated.Y, 0, MidpointRounding.AwayFromZero), MathF.Round(rotated.Z, 0, MidpointRounding.AwayFromZero));
+                    if (distinctVectors.Add(rotated))
+                    {
+                        result.Add(rotZ);
+                    }
                 }
             }
+        }
+
+        return result;
+    }
+
+    public IEnumerable<Scanner> IterateOrientations()
+    {
+        foreach(Quaternion rot in _roationCache.Value)
+        {
+            yield return this with {
+                Beacons = Beacons
+                            .Select(z => Vector3.Transform(z, rot))
+                            .Select(x => new Vector3(MathF.Round(x.X, 0, MidpointRounding.AwayFromZero), MathF.Round(x.Y, 0, MidpointRounding.AwayFromZero), MathF.Round(x.Z, 0, MidpointRounding.AwayFromZero)))
+                            .ToList()
+            };
         }
     }
 }
