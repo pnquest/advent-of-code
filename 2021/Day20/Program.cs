@@ -42,17 +42,16 @@ public static class Program
                     IntPoint pt = new IntPoint(x, y);
 
                     int index = 0;
-                    int numPosition = 9;
+                    int numPosition = 8;
                     foreach (IntPoint neighbor in pt.GetRegion(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue, true).OrderBy(p => p.Y).ThenBy(p => p.X))
                     {
-                        numPosition--;
                         if (neighbor.X >= 0 && neighbor.X < image[0].Length && neighbor.Y >= 0 && neighbor.Y < image.Length)
                         {
-                            index += (image[neighbor.Y][neighbor.X] ? 1 : 0) * (int)Math.Pow(2, numPosition);
+                            index += (image[neighbor.Y][neighbor.X] ? 1 : 0) * (int)Math.Pow(2, numPosition--);
                         }
                         else
                         {
-                            index += (defaultValue ? 1 : 0) * (int)Math.Pow(2, numPosition);
+                            index += (defaultValue ? 1 : 0) * (int)Math.Pow(2, numPosition--);
                         }
                     }
 

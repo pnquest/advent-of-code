@@ -26,6 +26,18 @@ public static class LinqExtensions
         }
     }
 
+    public static void SetOrIncrement<T>(this IDictionary<T, decimal> input, T key, decimal count)
+    {
+        if (input.ContainsKey(key))
+        {
+            input[key] += count;
+        }
+        else
+        {
+            input[key] = count;
+        }
+    }
+
     public static IEnumerable<T> Repeat<T>(this IEnumerable<T> input, int times)
     {
         for(int i = 0; i < times; i++)
