@@ -18,6 +18,7 @@ public static class Program
         decimal p2Wins = 0;
 
         int playerTurn = 0;
+
         while (gameStateDictionary.Count > 0)
         {
             Dictionary<GameState, decimal> updatedState = RunTurn(gameStateDictionary, ref p1Wins, ref p2Wins, playerTurn);
