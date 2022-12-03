@@ -85,19 +85,17 @@ internal class Program
 
         public RoundResult GetResult()
         {
-            return (You, Opponant) switch 
+            return this switch 
             {
-                (Choice you, Choice opp) when you == opp => RoundResult.Draw,
-                (Choice.Rock, Choice.Scisors) => RoundResult.Win,
-                (Choice.Rock, Choice.Paper) => RoundResult.Loss,
-                (Choice.Paper, Choice.Rock) => RoundResult.Win,
-                (Choice.Paper, Choice.Scisors) => RoundResult.Loss,
-                (Choice.Scisors, Choice.Paper) => RoundResult.Win,
-                (Choice.Scisors, Choice.Rock) => RoundResult.Loss,
+                _ when You == Opponant => RoundResult.Draw,
+                { You: Choice.Rock, Opponant: Choice.Scisors } => RoundResult.Win,
+                { You: Choice.Rock, Opponant: Choice.Paper } => RoundResult.Loss, 
+                { You: Choice.Paper, Opponant: Choice.Rock } => RoundResult.Win, 
+                { You: Choice.Paper, Opponant: Choice.Scisors } => RoundResult.Loss, 
+                { You: Choice.Scisors, Opponant: Choice.Paper } => RoundResult.Win, 
+                { You: Choice.Scisors, Opponant: Choice.Rock } => RoundResult.Loss,
                 _ => throw new InvalidOperationException("Invalid combination")
             };
         }
     }
 }
-
-

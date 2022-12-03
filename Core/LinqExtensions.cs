@@ -1,32 +1,11 @@
-﻿namespace System.Linq;
+﻿using System.Numerics;
+
+namespace System.Linq;
 
 public static class LinqExtensions
 {
-    public static void SetOrIncrement<T>(this IDictionary<T, int> input, T key, int count)
-    {
-        if (input.ContainsKey(key))
-        {
-            input[key] += count;
-        }
-        else
-        {
-            input[key] = count;
-        }
-    }
-
-    public static void SetOrIncrement<T>(this IDictionary<T, long> input, T key, long count)
-    {
-        if (input.ContainsKey(key))
-        {
-            input[key] += count;
-        }
-        else
-        {
-            input[key] = count;
-        }
-    }
-
-    public static void SetOrIncrement<T>(this IDictionary<T, decimal> input, T key, decimal count)
+    public static void SetOrIncrement<T, N>(this IDictionary<T, N> input, T key, N count)
+        where N: IAdditionOperators<N, N, N>
     {
         if (input.ContainsKey(key))
         {
@@ -56,6 +35,28 @@ public static class LinqExtensions
             foreach (T item in input)
             {
                 yield return transform(item, i);
+            }
+        }
+    }
+
+    public static IEnumerable<T[]> PartitionBy<T>(this IEnumerable<T> input, Func<T, bool> partitionFunc, bool includePartitionBoundary = false)
+    {
+        var items = new List<T>();
+
+        foreach(T item in input)
+        {
+            if (partitionFunc(item))
+            {
+                if(includePartitionBoundary)
+                {
+                    items.Add(item);
+                }
+                yield return items.ToArray();
+                items.Clear();
+            }
+            else
+            {
+                items.Add(item);
             }
         }
     }

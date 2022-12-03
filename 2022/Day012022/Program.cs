@@ -4,33 +4,28 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        List<long> calories = GetElfCalories();
+        Part1();
+        Part2();
+    }
 
-        Console.WriteLine($"Part 1: {calories.Max()}");
+    private static void Part2()
+    {
+        IEnumerable<long> calories = GetElfCalories();
         Console.WriteLine($"Part 2: {calories.OrderByDescending(c => c).Take(3).Sum()}");
     }
 
-    private static List<long> GetElfCalories()
+    private static void Part1()
+    {
+        IEnumerable<long> calories = GetElfCalories();
+
+        Console.WriteLine($"Part 1: {calories.Max()}");
+    }
+
+    private static IEnumerable<long> GetElfCalories()
     {
         string[] lines = File.ReadAllLines("./input.txt");
 
-        var calories = new List<long>();
-
-        long curElf = 0;
-
-        foreach (string line in lines)
-        {
-            if (line == string.Empty)
-            {
-                calories.Add(curElf);
-                curElf = 0;
-            }
-            else
-            {
-                curElf += long.Parse(line);
-            }
-        }
-
-        return calories;
+        return lines.PartitionBy(l => l == string.Empty)
+            .Select(p => p.Select(long.Parse).Sum());
     }
 }
