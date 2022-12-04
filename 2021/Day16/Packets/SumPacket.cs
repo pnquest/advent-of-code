@@ -6,7 +6,7 @@ internal class SumPacket : OperatorPacket
     {
         ulong result = 0;
 
-        foreach(PacketBase inner in InnerPackets)
+        foreach (PacketBase inner in InnerPackets)
         {
             result += inner.ComputeResult();
         }

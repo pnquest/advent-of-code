@@ -42,7 +42,7 @@ public static class Program
     {
         int result = val + loop;
 
-        if(result > 9)
+        if (result > 9)
         {
             return result - 9 * (result / 9);
         }

@@ -110,12 +110,12 @@ public static class Program
     private static int Roll3Times(ref int nextNumber)
     {
         int result = 0;
-        
-        for(int i  = 0; i < 3; i++)
+
+        for (int i = 0; i < 3; i++)
         {
             result += nextNumber++;
 
-            if(nextNumber > 100)
+            if (nextNumber > 100)
             {
                 nextNumber = 1;
             }
@@ -129,9 +129,9 @@ internal record struct GameState(int Player1Position, int Player2Position, int P
 {
     public IEnumerable<GameState> Player1Rolls()
     {
-        for(int d1 = 1; d1 <= 3; d1++)
+        for (int d1 = 1; d1 <= 3; d1++)
         {
-            for(int d2 = 1; d2 <= 3; d2++)
+            for (int d2 = 1; d2 <= 3; d2++)
             {
                 for (int d3 = 1; d3 <= 3; d3++)
                 {

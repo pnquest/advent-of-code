@@ -24,7 +24,7 @@ public class AStarPathFinder
         _openList.Add(start);
         _selections[start.Node] = start;
 
-        while(_openList.Count > 0)
+        while (_openList.Count > 0)
         {
             AStarSelection? curNode = _openList.MinBy(l => l.FScore);
 
@@ -34,9 +34,9 @@ public class AStarPathFinder
             }
 
             _openList.Remove(curNode);
-            
 
-            if(curNode.Node.Location == _endPoint)
+
+            if (curNode.Node.Location == _endPoint)
             {
                 AStarSelection? cur = _selections[curNode.Node];
 
@@ -47,7 +47,7 @@ public class AStarPathFinder
                 } while (cur != null);
             }
 
-            foreach(IntPoint neighbor in curNode.Node.Location.GetNeighbors(0, _map[0].Length - 1, 0, _map.Length - 1))
+            foreach (IntPoint neighbor in curNode.Node.Location.GetNeighbors(0, _map[0].Length - 1, 0, _map.Length - 1))
             {
                 ScoreAndAddNeighbors(curNode, neighbor);
             }

@@ -44,19 +44,19 @@ public static class Program
 
             cube = filter.ComputeIntersectingCube(cube);
 
-            if(cube == null)
+            if (cube == null)
             {
                 continue;
             }
 
             for (int x = cube.MinX; x <= cube.MaxX; x++)
             {
-                for(int y = cube.MinY; y <= cube.MaxY; y++)
+                for (int y = cube.MinY; y <= cube.MaxY; y++)
                 {
-                    for(int z = cube.MinZ; z <= cube.MaxZ; z++)
+                    for (int z = cube.MinZ; z <= cube.MaxZ; z++)
                     {
                         Vector3 vec = new(x, y, z);
-                        if(cube.State)
+                        if (cube.State)
                         {
                             on.Add(vec);
                         }
@@ -221,18 +221,18 @@ internal class Cube
 
     public bool DoesCompletelyContain(Cube other)
     {
-        return MinX <= other.MinX 
-            && MaxX >= other.MaxX 
-            && MinY <= other.MinY 
-            && MaxY >= other.MaxY 
-            && MinZ <= other.MinZ 
+        return MinX <= other.MinX
+            && MaxX >= other.MaxX
+            && MinY <= other.MinY
+            && MaxY >= other.MaxY
+            && MinZ <= other.MinZ
             && MaxZ >= other.MaxZ;
     }
 
     public IEnumerable<Cube> RemoveOverlap(Cube toRemove)
     {
         Cube? intersect = ComputeIntersectingCube(toRemove);
-        if(intersect == null)
+        if (intersect == null)
         {
             yield return this;
             yield break;
@@ -245,7 +245,7 @@ internal class Cube
         int tmpMinZ = MinZ;
         int tmpMaxZ = MaxZ;
 
-        if(intersect.MinX > tmpMinX)
+        if (intersect.MinX > tmpMinX)
         {
             yield return new Cube { State = State, MinX = tmpMinX, MaxX = intersect.MinX - 1, MinY = tmpMinY, MaxY = tmpMaxY, MaxZ = tmpMaxZ, MinZ = tmpMinZ };
             tmpMinX = intersect.MinX;
@@ -253,7 +253,7 @@ internal class Cube
 
         if (intersect.MaxX < tmpMaxX)
         {
-            yield return new Cube { State = State, MinX = intersect.MaxX + 1, MaxX = tmpMaxX, MinY = tmpMinY, MaxY=tmpMaxY, MinZ = tmpMinZ, MaxZ = tmpMaxZ };
+            yield return new Cube { State = State, MinX = intersect.MaxX + 1, MaxX = tmpMaxX, MinY = tmpMinY, MaxY = tmpMaxY, MinZ = tmpMinZ, MaxZ = tmpMaxZ };
             tmpMaxX = intersect.MaxX;
         }
 
@@ -281,13 +281,13 @@ internal class Cube
 
     public Cube? ComputeIntersectingCube(Cube? other)
     {
-        if(other == null)
+        if (other == null)
         {
             return null;
         }
 
         //cubes have no overlap
-        if(MinX > other.MaxX || MaxX < other.MinX || MinY > other.MaxY || MaxY < other.MinY || MinZ > other.MaxZ || MaxZ < other.MinZ)
+        if (MinX > other.MaxX || MaxX < other.MinX || MinY > other.MaxY || MaxY < other.MinY || MinZ > other.MaxZ || MaxZ < other.MinZ)
         {
             return null;
         }
@@ -299,14 +299,14 @@ internal class Cube
         int overlapMinZ = Math.Max(MinZ, other.MinZ);
         int overlapMaxZ = Math.Min(MaxZ, other.MaxZ);
 
-        return new Cube { 
-            State = other.State, 
-            MinX = overlapMinX, 
-            MaxX = overlapMaxX, 
-            MinY = overlapMinY, 
-            MaxY = overlapMaxY, 
-            MinZ = overlapMinZ, 
-            MaxZ = overlapMaxZ 
+        return new Cube {
+            State = other.State,
+            MinX = overlapMinX,
+            MaxX = overlapMaxX,
+            MinY = overlapMinY,
+            MaxY = overlapMaxY,
+            MinZ = overlapMinZ,
+            MaxZ = overlapMaxZ
         };
     }
 

@@ -132,7 +132,7 @@ public static class Program
             {
                 int commaIndex = lin.IndexOf(',');
                 int x = int.Parse(lin[..commaIndex]);
-                var nxt = lin[(commaIndex + 1)..];
+                string nxt = lin[(commaIndex + 1)..];
                 commaIndex = nxt.IndexOf(',');
                 int y = int.Parse(nxt[..commaIndex]);
                 nxt = nxt[(commaIndex + 1)..];
@@ -140,11 +140,11 @@ public static class Program
                 cur?.Add(new Vector3(x, y, z));
             }
         }
-        if(cur != null)
+        if (cur != null)
         {
             scanners.Add(new Scanner(cur));
         }
-        
+
         return scanners;
     }
 }
@@ -203,7 +203,7 @@ internal record Scanner(List<Vector3> Beacons, Vector3 ScannerPosition = new Vec
 
     public IEnumerable<Scanner> IterateOrientations()
     {
-        foreach(Quaternion rot in _roationCache.Value)
+        foreach (Quaternion rot in _roationCache.Value)
         {
             yield return this with {
                 Beacons = Beacons

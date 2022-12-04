@@ -72,14 +72,14 @@ public static class Program
         for (int y = 0; y < newImage.Length; y++)
         {
             newImage[y] = new bool[image[0].Length + 2];
-            if(paddingValue)
+            if (paddingValue)
             {
-                for(int i = 0; i < newImage[y].Length; i++)
+                for (int i = 0; i < newImage[y].Length; i++)
                 {
                     newImage[y][i] = true;
                 }
             }
-            if(y - 1 >= 0 && y - 1 < image.Length)
+            if (y - 1 >= 0 && y - 1 < image.Length)
             {
                 Array.ConstrainedCopy(image[y - 1], 0, newImage[y], 1, image[y - 1].Length);
             }

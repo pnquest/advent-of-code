@@ -21,9 +21,9 @@ public static class Program
     private static void Part2BruteForce()
     {
         IntLineSegment[] lines = File.ReadAllLines("./input.txt").Select(x => {
-            var splt = x.Split(" -> ");
-            var p1 = splt[0].Split(",");
-            var p2 = splt[1].Split(",");
+            string[] splt = x.Split(" -> ");
+            string[] p1 = splt[0].Split(",");
+            string[] p2 = splt[1].Split(",");
 
             return new IntLineSegment(new IntPoint(int.Parse(p1[0]), int.Parse(p1[1])), new IntPoint(int.Parse(p2[0]), int.Parse(p2[1])));
         }).ToArray();
@@ -65,9 +65,9 @@ public static class Program
     private static void Part2()
     {
         IntLineSegment[] lines = File.ReadAllLines("./input.txt").Select(x => {
-            var splt = x.Split(" -> ");
-            var p1 = splt[0].Split(",");
-            var p2 = splt[1].Split(",");
+            string[] splt = x.Split(" -> ");
+            string[] p1 = splt[0].Split(",");
+            string[] p2 = splt[1].Split(",");
 
             return new IntLineSegment(new IntPoint(int.Parse(p1[0]), int.Parse(p1[1])), new IntPoint(int.Parse(p2[0]), int.Parse(p2[1])));
         }).ToArray();
@@ -97,9 +97,9 @@ public static class Program
     private static void Part1()
     {
         IntLineSegment[] lines = File.ReadAllLines("./input.txt").Select(x => {
-            var splt = x.Split(" -> ");
-            var p1 = splt[0].Split(",");
-            var p2 = splt[1].Split(",");
+            string[] splt = x.Split(" -> ");
+            string[] p1 = splt[0].Split(",");
+            string[] p2 = splt[1].Split(",");
 
             return new IntLineSegment(new IntPoint(int.Parse(p1[0]), int.Parse(p1[1])), new IntPoint(int.Parse(p2[0]), int.Parse(p2[1])));
         }).ToArray();

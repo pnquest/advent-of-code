@@ -6,10 +6,10 @@ internal class MinimumPacket : OperatorPacket
     {
         ulong min = ulong.MaxValue;
 
-        foreach( PacketBase inner in InnerPackets)
+        foreach (PacketBase inner in InnerPackets)
         {
             ulong res = inner.ComputeResult();
-            if(min > res)
+            if (min > res)
             {
                 min = res;
             }

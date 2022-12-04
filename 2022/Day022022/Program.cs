@@ -29,8 +29,7 @@ internal class Program
 
     static internal Choice MapChoice(char c)
     {
-        return c switch 
-        {
+        return c switch {
             'A' or 'X' => Choice.Rock,
             'B' or 'Y' => Choice.Paper,
             'C' or 'Z' => Choice.Scisors,
@@ -40,8 +39,7 @@ internal class Program
 
     static internal RoundResult MapResult(char c)
     {
-        return c switch 
-        {
+        return c switch {
             'X' => RoundResult.Loss,
             'Y' => RoundResult.Draw,
             'Z' => RoundResult.Win,
@@ -85,15 +83,8 @@ internal class Program
 
         public RoundResult GetResult()
         {
-            return this switch 
-            {
-                _ when You == Opponant => RoundResult.Draw,
-                { You: Choice.Rock, Opponant: Choice.Scisors } => RoundResult.Win,
-                { You: Choice.Rock, Opponant: Choice.Paper } => RoundResult.Loss, 
-                { You: Choice.Paper, Opponant: Choice.Rock } => RoundResult.Win, 
-                { You: Choice.Paper, Opponant: Choice.Scisors } => RoundResult.Loss, 
-                { You: Choice.Scisors, Opponant: Choice.Paper } => RoundResult.Win, 
-                { You: Choice.Scisors, Opponant: Choice.Rock } => RoundResult.Loss,
+            return this switch {
+                _ when You == Opponant => RoundResult.Draw, { You: Choice.Rock, Opponant: Choice.Scisors } => RoundResult.Win, { You: Choice.Rock, Opponant: Choice.Paper } => RoundResult.Loss, { You: Choice.Paper, Opponant: Choice.Rock } => RoundResult.Win, { You: Choice.Paper, Opponant: Choice.Scisors } => RoundResult.Loss, { You: Choice.Scisors, Opponant: Choice.Paper } => RoundResult.Win, { You: Choice.Scisors, Opponant: Choice.Rock } => RoundResult.Loss,
                 _ => throw new InvalidOperationException("Invalid combination")
             };
         }

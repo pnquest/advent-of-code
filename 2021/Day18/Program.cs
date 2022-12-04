@@ -11,12 +11,12 @@ public static class Program
 
         for (int i = 0; i < numbers.Length; i++)
         {
-            for(int j = 0; j < numbers.Length; j++)
+            for (int j = 0; j < numbers.Length; j++)
             {
-                if(i != j)
+                if (i != j)
                 {
                     long? mag = (numbers[i] + numbers[j]).GetMagnitude();
-                    if(mag > maxValue)
+                    if (mag > maxValue)
                     {
                         maxValue = mag.Value;
                     }
@@ -40,7 +40,7 @@ public static class Program
     internal class SnailNumber
     {
         public int SingleValue { get; private set; }
-        public SnailNumber? Left { get; private set; } 
+        public SnailNumber? Left { get; private set; }
         public SnailNumber? Right { get; private set; }
         public SnailNumber? Parent { get; private set; }
         public bool IsSingleValue => Left == null || Right == null;
@@ -81,7 +81,7 @@ public static class Program
 
         private SnailNumber Clone(SnailNumber? parent)
         {
-            if(IsSingleValue)
+            if (IsSingleValue)
             {
                 return new SnailNumber { SingleValue = SingleValue, Parent = parent };
             }

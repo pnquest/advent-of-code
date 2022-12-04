@@ -30,7 +30,7 @@ internal abstract class PacketBase
 
         packet = packet.ParsePacketInternal(bits[6..], out int read);
         bitsRead = used + read;
-        if(isTopLevel)
+        if (isTopLevel)
         {
             while (bitsRead % 4 != 0)
             {

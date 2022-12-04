@@ -32,23 +32,14 @@ internal class Program
     }
 
     private static int ConvertToScore(char c)
-    {
-        if(char.IsLower(c))
-        {
-            return c + _lowerOffset;
-        }
-        else
-        {
-            return c + _upperOffset;
-        }
-    }
+        => char.IsLower(c) ? c + _lowerOffset : c + _upperOffset;
 
     private static IEnumerable<char> SpanIntersect(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
     {
         var result = new HashSet<char>();
-        foreach (char c in first) 
+        foreach (char c in first)
         {
-            if(second.Contains(c))
+            if (second.Contains(c))
             {
                 result.Add(c);
             }

@@ -20,7 +20,7 @@ public record struct IntPoint(int X, int Y)
 
     public IEnumerable<IntPoint> GetNeighbors(int minX, int maxX, int minY, int maxY, bool includeDiagonals = false)
     {
-        return includeDiagonals 
+        return includeDiagonals
             ? GetDiagonalNeighbors(minX, maxX, minY, maxY)
             : GetOrthogonalNeighbors(minX, maxX, minY, maxY);
     }
@@ -28,21 +28,22 @@ public record struct IntPoint(int X, int Y)
     private IEnumerable<IntPoint> GetDiagonalNeighbors(int minX, int maxX, int minY, int maxY)
     {
         ReadOnlySpan<IntSlope> slopes = stackalloc IntSlope[] {
-            new IntSlope(-1, -1), 
-            new IntSlope(-1, 0), 
-            new IntSlope(-1, 1), 
-            new IntSlope(0, -1), 
-            new IntSlope(0, 1), 
+            new IntSlope(-1, -1),
+            new IntSlope(-1, 0),
+            new IntSlope(-1, 1),
+            new IntSlope(0, -1),
+            new IntSlope(0, 1),
             new IntSlope(1, -1),
-            new IntSlope(1, 0), 
-            new IntSlope(1, 1) };
+            new IntSlope(1, 0),
+            new IntSlope(1, 1)
+        };
 
         List<IntPoint> neighbors = new();
 
-        for(int i = 0; i < slopes.Length; i++)
+        for (int i = 0; i < slopes.Length; i++)
         {
             IntPoint candidate = this + slopes[i];
-            if(candidate.X >= minX && candidate.X <= maxX && candidate.Y >= minY && candidate.Y <= maxY)
+            if (candidate.X >= minX && candidate.X <= maxX && candidate.Y >= minY && candidate.Y <= maxY)
             {
                 neighbors.Add(candidate);
             }

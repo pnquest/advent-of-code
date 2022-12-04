@@ -6,7 +6,7 @@ internal class ProductPacket : OperatorPacket
     {
         ulong result = 1;
 
-        foreach(PacketBase inner in InnerPackets)
+        foreach (PacketBase inner in InnerPackets)
         {
             result *= inner.ComputeResult();
         }

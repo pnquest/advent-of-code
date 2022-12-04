@@ -13,13 +13,13 @@ internal class LiteralPacket : PacketBase
         List<char> numberBits = new();
         bool isLastBlock = false;
 
-        while(!isLastBlock)
+        while (!isLastBlock)
         {
-            if(bits.Span[index] == '0')
+            if (bits.Span[index] == '0')
             {
                 isLastBlock = true;
             }
-            for(int i = index + 1; i < index + 5; i++)
+            for (int i = index + 1; i < index + 5; i++)
             {
                 numberBits.Add(bits.Span[i]);
             }

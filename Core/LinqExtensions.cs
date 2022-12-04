@@ -5,7 +5,7 @@ namespace System.Linq;
 public static class LinqExtensions
 {
     public static void SetOrIncrement<T, N>(this IDictionary<T, N> input, T key, N count)
-        where N: IAdditionOperators<N, N, N>
+        where N : IAdditionOperators<N, N, N>
     {
         if (input.ContainsKey(key))
         {
@@ -19,9 +19,9 @@ public static class LinqExtensions
 
     public static IEnumerable<T> Repeat<T>(this IEnumerable<T> input, int times)
     {
-        for(int i = 0; i < times; i++)
+        for (int i = 0; i < times; i++)
         {
-            foreach(T item in input)
+            foreach (T item in input)
             {
                 yield return item;
             }
@@ -43,11 +43,11 @@ public static class LinqExtensions
     {
         var items = new List<T>();
 
-        foreach(T item in input)
+        foreach (T item in input)
         {
             if (partitionFunc(item))
             {
-                if(includePartitionBoundary)
+                if (includePartitionBoundary)
                 {
                     items.Add(item);
                 }
