@@ -25,26 +25,12 @@ internal class Program
     private static void Part1(string[] lines)
     {
         long result = lines
-                    .SelectMany(l => SpanIntersect(l.AsSpan()[..(l.Length / 2)], l.AsSpan()[(l.Length / 2)..]))
-                    .Sum(c => ConvertToScore(c));
+                    .SelectMany(l => l.AsSpan()[..(l.Length / 2)].Intersect(l.AsSpan()[(l.Length / 2)..]).ToHashSet())
+                    .Sum(ConvertToScore);
 
         Console.WriteLine($"Part 1: {result}");
     }
 
     private static int ConvertToScore(char c)
         => char.IsLower(c) ? c + _lowerOffset : c + _upperOffset;
-
-    private static IEnumerable<char> SpanIntersect(ReadOnlySpan<char> first, ReadOnlySpan<char> second)
-    {
-        var result = new HashSet<char>();
-        foreach (char c in first)
-        {
-            if (second.Contains(c))
-            {
-                result.Add(c);
-            }
-        }
-
-        return result;
-    }
 }

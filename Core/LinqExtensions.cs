@@ -60,4 +60,19 @@ public static class LinqExtensions
             }
         }
     }
+
+    public static IEnumerable<T> Intersect<T>(this ReadOnlySpan<T> first, ReadOnlySpan<T> second)
+        where T: IEquatable<T>
+    {
+        var result = new List<T>(Math.Max(first.Length, second.Length));
+        foreach (T c in first)
+        {
+            if (second.Contains(c))
+            {
+                result.Add(c);
+            }
+        }
+
+        return result;
+    }
 }
