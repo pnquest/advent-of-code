@@ -8,10 +8,10 @@ internal class Program
 
         FileSystemNode? current = null;
         Dictionary<string, FileSystemNode> nodes = new();
-        current = BuildFileTree(lines, current, nodes);
+        BuildFileTree(lines, current, nodes);
 
         var root = nodes["/"];
-        Part1(root);
+        Part1(nodes);
         Part2(nodes, root);
     }
 
@@ -25,28 +25,9 @@ internal class Program
         Console.WriteLine($"Part 2: {toDelete}");
     }
 
-    private static void Part1(FileSystemNode root)
+    private static void Part1(Dictionary<string, FileSystemNode> nodes)
     {
-        long totalSize = 0;
-
-        Stack<FileSystemNode> nodeStack = new();
-        nodeStack.Push(root);
-
-        while (nodeStack.Count > 0)
-        {
-            FileSystemNode node = nodeStack.Pop();
-            long fullSize = node.FullSize.Value;
-
-            if (fullSize <= 100000)
-            {
-                totalSize += fullSize;
-            }
-
-            foreach (FileSystemNode child in node.Children.Where(c => c.Type == FileSystemType.Directory))
-            {
-                nodeStack.Push(child);
-            }
-        }
+        long totalSize = nodes.Values.Where(v => v.FullSize.Value <= 100000).Sum(v => v.FullSize.Value);
 
         Console.WriteLine($"Part 1: {totalSize}");
     }
