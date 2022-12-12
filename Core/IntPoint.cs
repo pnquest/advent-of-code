@@ -141,15 +141,13 @@ public record struct IntPoint(int X, int Y)
         CouterClockwise
     }
 
-    public static IntSlope operator +(IntPoint pt, IntPoint slp)
+    public static IntSlope operator +(in IntPoint pt, in IntPoint slp)
     {
         return new IntSlope(pt.X + slp.X, pt.Y + slp.Y);
     }
 
-    public static IntSlope operator -(IntPoint pt, IntPoint slp)
+    public static IntSlope operator -(in IntPoint pt, in IntPoint slp)
     {
         return new IntSlope(pt.X - slp.X, pt.Y - slp.Y);
     }
 }
-
-internal record struct CacheKey(int Item1, int Item2, int Item3, int Item4);
