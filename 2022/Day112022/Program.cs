@@ -8,9 +8,13 @@ internal class Program
     static void Main(string[] args)
     {
         Part1();
+        Part2();
+    }
 
+    private static void Part2()
+    {
         Monkey[] monkeys = ParseMonkeys();
-        long lcm = monkeys.Aggregate(1L, (s, m) => s * m.Test.DivisibleWhen);
+        long lcm = AocMath.CalculateLeastCommonMultiple(monkeys.Select(m => m.Test.DivisibleWhen).ToArray());
         long result = CalculateResult(monkeys, 10000, lcm, true);
         Console.WriteLine($"Part 2: {result}");
     }
@@ -45,14 +49,14 @@ internal class Program
                     {
                         newVal /= divisor;
                     }
-                    Monkey newTarget = monkeys[m.Test.CalculateNewTarget((long)newVal)];
+                    Monkey newTarget = monkeys[m.Test.CalculateNewTarget(newVal)];
 
-                    newTarget.Items.Enqueue((long)newVal);
+                    newTarget.Items.Enqueue(newVal);
                 }
             }
         }
 
-        long result = inspections.Values.OrderByDescending(v => (long)v).Take(2).Aggregate(1L, (a, v) => a * v);
+        long result = inspections.Values.OrderByDescending(v => v).Take(2).Aggregate(1L, (a, v) => a * v);
         return result;
     }
 
@@ -61,7 +65,9 @@ internal class Program
         string text = File.ReadAllText("./input.txt");
 
         Parser<char, long> monkeyNameParser = Parser.String("Monkey ").Then(Parser.LongNum.Before(Parser.Char(':').Before(Parser.EndOfLine)));
-        Parser<char, Queue<long>> monkeyItemsParser = Parser.Whitespaces.Then(Parser.String("Starting items: ").Then(Parser.LongNum.SeparatedAndOptionallyTerminatedAtLeastOnce(Parser.String(", ")).Map(v => new Queue<long>(v)).Before(Parser.EndOfLine)));
+        Parser<char, Queue<long>> monkeyItemsParser = Parser.Whitespaces
+            .Then(Parser.String("Starting items: ")
+                    .Then(Parser.LongNum.SeparatedAndOptionallyTerminatedAtLeastOnce(Parser.String(", ")).Map(v => new Queue<long>(v)).Before(Parser.EndOfLine)));
         Parser<char, string> numOrOldParser = Parser.Num.Map(i => i.ToString()).Or(Parser.String("old"));
         Parser<char, Operation> operationParser = Parser.Whitespaces.Then(Parser.String("Operation: new = ")
             .Then(Parser.Map((n1, o, n2) => new Operation(n1, o, n2), numOrOldParser.Before(Parser.Whitespace), Parser.AnyCharExcept().Before(Parser.Whitespace), numOrOldParser))
