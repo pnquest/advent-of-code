@@ -1,6 +1,8 @@
-﻿namespace Core;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public record struct IntPoint(int X, int Y)
+namespace Core;
+
+public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
 {
     public static Orientation GetOrientation(IntPoint p1, IntPoint p2, IntPoint p3)
     {
@@ -132,6 +134,33 @@ public record struct IntPoint(int X, int Y)
         }
 
         return neighbors;
+    }
+
+    public static IntPoint Parse(string s, IFormatProvider? provider)
+    {
+        int commaIndex = s.IndexOf(',');
+        int x = int.Parse(s.AsSpan()[..commaIndex]);
+        int y = int.Parse(s.AsSpan()[(commaIndex + 1)..]);
+        return new IntPoint(x, y);
+    }
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out IntPoint result)
+    {
+        if(s == null)
+        {
+            result = default;
+            return false;
+        }
+
+        try
+        {
+            result = Parse(s, null);
+            return true;
+        }
+        catch
+        {
+            result = default;
+            return false;
+        }
     }
 
     public enum Orientation
