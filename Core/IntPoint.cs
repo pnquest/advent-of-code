@@ -179,4 +179,37 @@ public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
     {
         return new IntSlope(pt.X - slp.X, pt.Y - slp.Y);
     }
+
+    public IntSlope CalculateUnitDirection(in IntPoint other)
+    {
+        int x;
+        if(other.X == X)
+        {
+            x = 0;
+        }
+        else if(other.X > X)
+        {
+            x = 1;
+        }
+        else
+        {
+            x = -1;
+        }
+
+        int y;
+        if(other.Y == Y)
+        {
+            y = 0;
+        }
+        else if(other.Y > Y)
+        {
+            y = 1;
+        }
+        else
+        {
+            y = -1;
+        }
+
+        return new IntSlope(x, y);
+    }
 }
