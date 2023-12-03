@@ -33,15 +33,7 @@ internal class Program
         {
             foreach (Cube cube in draw.Cubes)
             {
-                if (!colors.TryGetValue(cube.Color, out int value))
-                {
-                    colors[cube.Color] = 0;
-                }
-
-                if (cube.Count > value)
-                {
-                    colors[cube.Color] = cube.Count;
-                }
+                colors.SetOrMax(cube.Color, cube.Count);
             }
         }
 

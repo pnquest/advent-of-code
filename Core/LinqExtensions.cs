@@ -4,6 +4,15 @@ namespace System.Linq;
 
 public static class LinqExtensions
 {
+    public static void SetOrMax<T, N>(this IDictionary<T, N> input, T key, N value)
+        where N : IComparable<N>
+    {
+        if(!input.TryGetValue(key, out N? result) || value.CompareTo(result) > 0)
+        {
+            input[key] = value;
+        }
+    }
+
     public static void SetOrIncrement<T, N>(this IDictionary<T, N> input, T key, N count)
         where N : IAdditionOperators<N, N, N>
     {
