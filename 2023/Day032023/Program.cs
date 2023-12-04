@@ -7,8 +7,8 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        List<Number> numbers = new List<Number>();
-        Dictionary<IntPoint, char> Symbols = new Dictionary<IntPoint, char>();
+        List<Number> numbers = [];
+        Dictionary<IntPoint, char> Symbols = [];
         ParseMap(numbers, Symbols);
         Part1(numbers, Symbols);
         Part2(numbers, Symbols);
@@ -21,9 +21,9 @@ internal class Program
         long totalRatio = 0;
         foreach (IntPoint symbolPoint in Symbols.Where(s => s.Value == '*').Select(s => s.Key))
         {
-            List<Number> neighbors = new List<Number>();
+            List<Number> neighbors = [];
 
-            foreach (var neighbor in symbolPoint.GetNeighbors(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue, true))
+            foreach (IntPoint neighbor in symbolPoint.GetNeighbors(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue, true))
             {
                 if (numberLocations.TryGetValue(neighbor, out Number? val) && !neighbors.Contains(val))
                 {
@@ -70,11 +70,11 @@ internal class Program
 
     private static void ParseMap(List<Number> numbers, Dictionary<IntPoint, char> Symbols)
     {
-        foreach (var line in File.ReadAllLines("./input.txt").Select((l, i) => (l, i)))
+        foreach ((string l, int i) line in File.ReadAllLines("./input.txt").Select((l, i) => (l, i)))
         {
             bool isInNumber = false;
-            List<int> digits = new();
-            List<IntPoint> points = new();
+            List<int> digits = [];
+            List<IntPoint> points = [];
             for (int i = 0; i < line.l.Length; i++)
             {
                 if (char.IsDigit(line.l[i]))
