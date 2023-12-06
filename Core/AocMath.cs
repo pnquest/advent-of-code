@@ -3,6 +3,16 @@
 namespace Core;
 public static class AocMath
 {
+    public static IEnumerable<T> Range<T>(T start, T length)
+        where T : INumber<T>
+    {
+        T cur = start;
+
+        for(T i = T.Zero; i < length; i++)
+        {
+            yield return cur++;
+        }
+    }
     public static T CalculateGreatestCommonFactor<T>(T a, T b)
         where T: INumber<T>
     {

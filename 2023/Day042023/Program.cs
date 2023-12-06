@@ -10,7 +10,11 @@ internal class Program
             .Select(ParseCard)
             .ToArray();
         Part1(cards);
+        Part2(cards);
+    }
 
+    private static void Part2(ScratchCard[] cards)
+    {
         var cardDict = cards.ToDictionary(d => d.Id, d => new CardCount(d));
 
         foreach (KeyValuePair<int, CardCount> cardCount in cardDict)
