@@ -79,7 +79,7 @@ internal class Program
             .Select(l => fullParser.ParseOrThrow(l))
             .ToDictionary(p => p.Coordinates);
 
-        Dictionary<IntPoint, Position> toAdd = new();
+        Dictionary<IntPoint, Position> toAdd = [];
 
         foreach (Position p in sensors.Values)
         {
@@ -102,7 +102,7 @@ internal class Program
 
     private static int CountNonBeaconsInRow(Dictionary<IntPoint, Position> sensors, int searchY)
     {
-        HashSet<IntPoint> result = new();
+        HashSet<IntPoint> result = [];
         foreach (Position sensor in sensors.Values.Where(s => s.Type == Position.PositionType.Sensor))
         {
             int distance = sensor.Coordinates.CalculateManhattenDistanceTo(sensor.NearestBeacon!.Value);
@@ -130,7 +130,7 @@ internal class Program
 
     private static void MapUnknowns(Dictionary<IntPoint, Position> sensors)
     {
-        Dictionary<IntPoint, Position> toAdd = new();
+        Dictionary<IntPoint, Position> toAdd = [];
 
         foreach (Position sensor in sensors.Values.Where(s => s.Type == Position.PositionType.Sensor))
         {

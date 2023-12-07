@@ -26,7 +26,7 @@ public static class Program
         string[] lines = File.ReadAllLines("./input.txt");
 
         Dictionary<char, long> counts = lines[0].GroupBy(c => c).ToDictionary(c => c.Key, c => c.LongCount());
-        Dictionary<string, long> pairCounts = new();
+        Dictionary<string, long> pairCounts = [];
 
         for (int i = 1; i < lines[0].Length; i++)
         {
@@ -38,7 +38,7 @@ public static class Program
 
         for (int i = 0; i < cycles; i++)
         {
-            Dictionary<string, long> newPairs = new();
+            Dictionary<string, long> newPairs = [];
 
             foreach (KeyValuePair<string, long> pair in pairCounts)
             {

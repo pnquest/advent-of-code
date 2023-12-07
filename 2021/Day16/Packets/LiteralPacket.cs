@@ -10,7 +10,7 @@ internal class LiteralPacket : PacketBase
     {
         int index = 0;
 
-        List<char> numberBits = new();
+        List<char> numberBits = [];
         bool isLastBlock = false;
 
         while (!isLastBlock)

@@ -6,7 +6,7 @@ public static class Program
 {
     public static void Main()
     {
-        HashSet<Vector3> on = new();
+        HashSet<Vector3> on = [];
 
         string[] lines = File.ReadAllLines("./input.txt");
 

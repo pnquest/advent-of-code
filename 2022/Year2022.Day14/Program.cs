@@ -134,7 +134,7 @@ internal class Program
 
     private static void SetupPuzzle(out HashSet<IntPoint> occupied, out int minX, out int maxX, out int maxY)
     {
-        occupied = new HashSet<IntPoint>();
+        occupied = [];
         int curMinX = int.MaxValue;
         int curMaxX = int.MinValue;
         int curMaxY = int.MinValue;

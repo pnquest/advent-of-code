@@ -8,9 +8,9 @@ public static class Program
     {
         Part1();
 
-        Dictionary<char, Segments> segments = new();
+        Dictionary<char, Segments> segments = [];
 
-        List<string> outputs = new();
+        List<string> outputs = [];
 
         IEnumerable<InputOutput> rows = File.ReadAllLines("./input.txt")
                     .Select(s => s.Split(" | "))
@@ -23,7 +23,7 @@ public static class Program
 
     private record InputOutput(string input, string output)
     {
-        private Dictionary<char, Segments> _segments = new();
+        private Dictionary<char, Segments> _segments = [];
 
         public long ComputeSegments()
         {
@@ -40,7 +40,7 @@ public static class Program
                 //finally if that doesn't work anymore resort to brute forcing the remaining possibilities
                 if (!changed)
                 {
-                    foreach (var possiblity in EnumeratePossibilities(_segments))
+                    foreach (Dictionary<char, Segments> possiblity in EnumeratePossibilities(_segments))
                     {
                         if (digits.All(c => ConvertStringToDigit(c, possiblity) != -1))
                         {
@@ -72,9 +72,9 @@ public static class Program
         private bool EliminateViaExclusiveGroups()
         {
             bool changed = false;
-            Dictionary<Segments, (int, List<char>)> flipped = new();
+            Dictionary<Segments, (int, List<char>)> flipped = [];
 
-            foreach (var pair in _segments)
+            foreach (KeyValuePair<char, Segments> pair in _segments)
             {
                 if (!flipped.TryGetValue(pair.Value, out (int, List<char>) val))
                 {
@@ -87,12 +87,12 @@ public static class Program
                 }
             }
 
-            foreach (var pair in flipped)
+            foreach (KeyValuePair<Segments, (int, List<char>)> pair in flipped)
             {
                 if (pair.Value.Item1 == pair.Value.Item2.Count)
                 {
                     Segments removemask = (Segments.Top | Segments.TopRight | Segments.TopLeft | Segments.Center | Segments.BottomRight | Segments.BottomLeft | Segments.Bottom) ^ pair.Key;
-                    foreach (var pair2 in flipped.Where(f => f.Key != pair.Key))
+                    foreach (KeyValuePair<Segments, (int, List<char>)> pair2 in flipped.Where(f => f.Key != pair.Key))
                     {
                         foreach (char c in pair2.Value.Item2)
                         {
@@ -124,7 +124,7 @@ public static class Program
                     }
                     else
                     {
-                        var reduced = seg & segments;
+                        Segments reduced = seg & segments;
                         _segments[c] = reduced;
                     }
                 }

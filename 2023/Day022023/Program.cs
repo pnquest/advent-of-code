@@ -48,7 +48,7 @@ internal class Program
             ["blue"] = 14
         }.ToFrozenDictionary();
 
-        List<int> legalIds = new();
+        List<int> legalIds = [];
 
         foreach (Game game in games)
         {

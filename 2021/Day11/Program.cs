@@ -22,7 +22,7 @@ public static class Program
         {
             counter++;
             curFlashes = 0;
-            HashSet<Octopus> flashed = new();
+            HashSet<Octopus> flashed = [];
             Stack<Octopus> toFlash = new();
             RaiseAllLevels(input, toFlash);
             curFlashes = HandleFlashes(input, 0, flashed, toFlash);
@@ -42,7 +42,7 @@ public static class Program
 
         for (int i = 0; i < 100; i++)
         {
-            HashSet<Octopus> flashed = new();
+            HashSet<Octopus> flashed = [];
             Stack<Octopus> toFlash = new();
             RaiseAllLevels(input, toFlash);
             totalFlashes = HandleFlashes(input, totalFlashes, flashed, toFlash);
@@ -139,7 +139,7 @@ internal class Octopus
 
         foreach (IntSlope slope in slopes)
         {
-            var potential = Position + slope;
+            IntPoint potential = Position + slope;
 
             if (potential.X >= 0 && potential.X < 10 && potential.Y >= 0 && potential.Y < 10)
             {

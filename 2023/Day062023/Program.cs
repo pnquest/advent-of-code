@@ -23,7 +23,7 @@ internal class Program
         int[] times = lines[0].Split(':')[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
         int[] distances = lines[1].Split(':')[1].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 
-        List<int> ways = new List<int>();
+        List<int> ways = [];
 
         for (int i = 0; i < times.Length; i++)
         {

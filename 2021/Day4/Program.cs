@@ -59,7 +59,7 @@ public static class Program
         picks = new Queue<int>(lines[0].Split(',').Select(int.Parse));
         IEnumerable<string[]>? boardsRaw = lines.Skip(2).Where(l => l.Length > 0).Chunk(5);
 
-        boards = new();
+        boards = [];
         foreach (string[]? boardRaw in boardsRaw)
         {
             var board = new Board();
@@ -93,7 +93,7 @@ public static class Program
     internal class Board
     {
         private readonly BoardSpace[][] _board;
-        private readonly Dictionary<int, BoardPosition> _spaceDictionary = new();
+        private readonly Dictionary<int, BoardPosition> _spaceDictionary = [];
 
         private int _curX = 0;
         private int _curY = 0;

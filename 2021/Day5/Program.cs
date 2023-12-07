@@ -7,13 +7,13 @@ public static class Program
     public static void Main()
     {
         Part1();
-        var part2Start = DateTime.Now;
+        DateTime part2Start = DateTime.Now;
         Part2();
-        var part2End = DateTime.Now;
+        DateTime part2End = DateTime.Now;
 
-        var bruteForceStart = DateTime.Now;
+        DateTime bruteForceStart = DateTime.Now;
         Part2BruteForce();
-        var bruteForceEnd = DateTime.Now;
+        DateTime bruteForceEnd = DateTime.Now;
 
         Console.WriteLine($"Part 2 perf difference: Geometry = {part2End - part2Start}; Brute Force = {bruteForceEnd - bruteForceStart}");
     }
@@ -34,8 +34,8 @@ public static class Program
 
     private static int BruteForceLines(IntLineSegment[] lines)
     {
-        HashSet<IntPoint> seenFirst = new();
-        HashSet<IntPoint> seenAFter = new();
+        HashSet<IntPoint> seenFirst = [];
+        HashSet<IntPoint> seenAFter = [];
 
         foreach (IntLineSegment line in lines)
         {
@@ -78,7 +78,7 @@ public static class Program
 
     private static int CalculateOverlaps(IntLineSegment[] lines)
     {
-        HashSet<IntPoint> overlappingPoints = new();
+        HashSet<IntPoint> overlappingPoints = [];
 
         for (int i = 0; i < lines.Length - 1; i++)
         {
@@ -104,7 +104,7 @@ public static class Program
             return new IntLineSegment(new IntPoint(int.Parse(p1[0]), int.Parse(p1[1])), new IntPoint(int.Parse(p2[0]), int.Parse(p2[1])));
         }).ToArray();
 
-        HashSet<IntPoint> overlappingPoints = new();
+        HashSet<IntPoint> overlappingPoints = [];
 
         lines = lines.Where(l => l.P1.X == l.P2.X || l.P1.Y == l.P2.Y).ToArray();
 

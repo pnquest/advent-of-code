@@ -79,12 +79,12 @@ internal class Program
             }
             if(Type == PacketType.Number && other.Type == PacketType.List && NumberValue != null && other.ListValue != null)
             {
-                var listPacket = new Packet(PacketType.List, null, new List<Packet> { this });
+                var listPacket = new Packet(PacketType.List, null, [this]);
                 return listPacket.CompareTo(other);
             }
             if(Type == PacketType.List && other.Type == PacketType.Number && ListValue != null && other.NumberValue != null)
             {
-                var listpacket = new Packet(PacketType.List, null, new List<Packet> { other });
+                var listpacket = new Packet(PacketType.List, null, [other]);
                 return CompareTo(listpacket);
             }
 

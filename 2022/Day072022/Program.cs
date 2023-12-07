@@ -7,10 +7,10 @@ internal class Program
         string[] lines = File.ReadAllLines("./input.txt");
 
         FileSystemNode? current = null;
-        Dictionary<string, FileSystemNode> nodes = new();
+        Dictionary<string, FileSystemNode> nodes = [];
         BuildFileTree(lines, current, nodes);
 
-        var root = nodes["/"];
+        FileSystemNode root = nodes["/"];
         Part1(nodes);
         Part2(nodes, root);
     }
@@ -163,7 +163,7 @@ internal class Program
         public required FileSystemType Type { get; init; }
         public required string Name { get; init; }
         public int? Size { get; init; }
-        public List<FileSystemNode> Children { get; } = new ();
+        public List<FileSystemNode> Children { get; } = [];
         public FileSystemNode? Parent { get; set; }
         public Lazy<long> FullSize { get; }
 

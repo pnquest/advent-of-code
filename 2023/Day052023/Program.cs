@@ -16,7 +16,7 @@ internal class Program
             .Select(long.Parse)
             .ToArray();
 
-        List<Map> maps = new List<Map>();
+        List<Map> maps = [];
         ParseMap(lines, maps);
 
         Part1(seeds, maps);
@@ -25,21 +25,21 @@ internal class Program
 
     private static void Part2Fast(long[] seeds, List<Map> maps)
     {
-        var startingRanges = seeds.Chunk(2).Select(s => new Range<long>(s[0], s[0] + s[1] - 1)).ToArray();
-        List<long> results = new();
-        foreach (var range in startingRanges)
+        Range<long>[] startingRanges = seeds.Chunk(2).Select(s => new Range<long>(s[0], s[0] + s[1] - 1)).ToArray();
+        List<long> results = [];
+        foreach (Range<long> range in startingRanges)
         {
             var runQueue = new Queue<Range<long>>();
             runQueue.Enqueue(range);
             var toAdd = new List<Range<long>>();
-            foreach (var map in maps)
+            foreach (Map map in maps)
             {
                 while (runQueue.Count > 0)
                 {
-                    var cur = runQueue.Dequeue();
+                    Range<long> cur = runQueue.Dequeue();
                     toAdd.AddRange(map.Apply(cur));
                 }
-                foreach (var add in toAdd)
+                foreach (Range<long> add in toAdd)
                 {
                     runQueue.Enqueue(add);
                 }
@@ -61,10 +61,10 @@ internal class Program
         while (i < lines.Length)
         {
             string name = lines[i++].Trim(':');
-            List<MapItem> items = new List<MapItem>();
+            List<MapItem> items = [];
             while (i < lines.Length && lines[i] != string.Empty)
             {
-                var lineItems = lines[i++].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
+                long[] lineItems = lines[i++].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
                 items.Add(new MapItem(lineItems[1], lineItems[0], lineItems[2]));
             }
             i++;//skip blank line between maps
@@ -79,7 +79,7 @@ internal class Program
     {
         long result = seeds.Select(s => {
             long cur = s;
-            foreach (var map in maps)
+            foreach (Map map in maps)
             {
                 cur = map.Apply(cur);
             }
@@ -95,20 +95,20 @@ internal class Program
     {
         public IEnumerable<Range<long>> Apply(Range<long> r)
         {
-            List<Range<long>> remainders = new();
+            List<Range<long>> remainders = [];
             var rangeQueue = new Queue<Range<long>>();
             rangeQueue.Enqueue(r);
             while (rangeQueue.Count > 0)
             {
-                var cur = rangeQueue.Dequeue();
+                Range<long> cur = rangeQueue.Dequeue();
                 bool mapped = false;
-                foreach (var item in MapItems)
+                foreach (MapItem item in MapItems)
                 {
                     var itemRange = new Range<long>(item.Source, item.Source + item.Length - 1);
-                    var overlap = cur.GetOverlap(itemRange);
+                    Range<long>? overlap = cur.GetOverlap(itemRange);
                     if (overlap != null)
                     {
-                        foreach(var other in cur.RemoveRange(overlap.Value))
+                        foreach(Range<long> other in cur.RemoveRange(overlap.Value))
                         {
                             rangeQueue.Enqueue(other);
                         }
@@ -126,7 +126,7 @@ internal class Program
 
         public long Apply(long input)
         {
-            foreach(var item in MapItems)
+            foreach(MapItem item in MapItems)
             {
                 long distance = input - item.Source;
                 if(distance >= 0 && distance <= item.Length)
@@ -140,7 +140,7 @@ internal class Program
 
         public decimal Apply(decimal input)
         {
-            foreach (var item in MapItems)
+            foreach (MapItem item in MapItems)
             {
                 decimal distance = input - item.Source;
                 if (distance >= 0 && distance <= item.Length)

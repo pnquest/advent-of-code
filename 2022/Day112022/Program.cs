@@ -29,7 +29,7 @@ internal class Program
 
     private static long CalculateResult(Monkey[] monkeys, long rounds, long divisor, bool normalizeToTarget)
     {
-        Dictionary<long, long> inspections = new();
+        Dictionary<long, long> inspections = [];
 
         for (long r = 0; r < rounds; r++)
         {

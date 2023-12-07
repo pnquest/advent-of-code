@@ -32,7 +32,7 @@ public static class Program
 
     private static Dictionary<GameState, decimal> RunTurn(Dictionary<GameState, decimal> gameStateDictionary, ref decimal p1Wins, ref decimal p2Wins, int playerTurn)
     {
-        Dictionary<GameState, decimal> updatedState = new();
+        Dictionary<GameState, decimal> updatedState = [];
 
         foreach (KeyValuePair<GameState, decimal> stateSet in gameStateDictionary)
         {

@@ -50,8 +50,8 @@ public static class Program
     {
         string[] lines = File.ReadAllLines("./input.txt");
 
-        List<IntPoint> points = new();
-        foldInstructions = new();
+        List<IntPoint> points = [];
+        foldInstructions = [];
         bool foundBlank = false;
         for (int i = 0; i < lines.Length; i++)
         {

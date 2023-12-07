@@ -27,9 +27,9 @@ public static class Program
     {
         Cave start = caveMap["start"];
         Stack<Path> paths = new();
-        List<Path> endPaths = new();
+        List<Path> endPaths = [];
 
-        Path? startPath = new(new(), new(), AllowDuplicate: allowDuplicates);
+        Path? startPath = new([], [], AllowDuplicate: allowDuplicates);
         (_, startPath) = startPath.TryAddCave(start);
         if (startPath != null)
         {
@@ -44,7 +44,7 @@ public static class Program
 
             foreach (Cave nextCave in lastCave.Connections)
             {
-                var (result, cloned) = curPath.TryAddCave(nextCave);
+                (Path.AddResult result, Path cloned) = curPath.TryAddCave(nextCave);
                 switch (result)
                 {
                     case Path.AddResult.Success when cloned is not null:
@@ -66,7 +66,7 @@ public static class Program
 
     private static Dictionary<string, Cave> BuildCaves()
     {
-        Dictionary<string, Cave> caveMap = new();
+        Dictionary<string, Cave> caveMap = [];
 
         foreach (string line in File.ReadLines("./input.txt"))
         {
@@ -155,7 +155,7 @@ internal class Cave
     public bool IsSmall => char.IsLower(Name[0]);
     public bool IsEnd => Name == "end";
     public bool IsStart => Name == "start";
-    public List<Cave> Connections { get; } = new();
+    public List<Cave> Connections { get; } = [];
 
     public Cave(string name)
     {

@@ -66,7 +66,7 @@ public static class Program
         {
             foreach (Scanner orientation in scanners[i].IterateOrientations())
             {
-                HashSet<Vector3> adjustments = new();
+                HashSet<Vector3> adjustments = [];
                 foreach (Vector3 p in curPinned.Beacons)
                 {
                     foreach (Vector3 o in orientation.Beacons)
@@ -110,7 +110,7 @@ public static class Program
     {
         string[] lines = File.ReadAllLines("./input.txt");
 
-        List<Scanner> scanners = new();
+        List<Scanner> scanners = [];
 
         List<Vector3>? cur = null;
         foreach (string lin in lines)
@@ -122,7 +122,7 @@ public static class Program
                     scanners.Add(new Scanner(cur));
                 }
 
-                cur = new();
+                cur = [];
             }
             else if (string.IsNullOrEmpty(lin))
             {
@@ -175,8 +175,8 @@ internal record Scanner(List<Vector3> Beacons, Vector3 ScannerPosition = new Vec
     private static Lazy<List<Quaternion>> _roationCache;
     private static List<Quaternion> InnitRotations()
     {
-        HashSet<Vector3> distinctVectors = new();
-        List<Quaternion> result = new();
+        HashSet<Vector3> distinctVectors = [];
+        List<Quaternion> result = [];
         Vector3 testVector = new Vector3(1, 2, 3);
         int[] angles = new int[] { 0, 90, 180, 270 };
         foreach (int x in angles)

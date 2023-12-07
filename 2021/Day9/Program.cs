@@ -17,8 +17,8 @@ public static class Program
         CalculateLowPoints(map);
 
         Span<IntSlope> slopes = stackalloc IntSlope[] { new IntSlope(-1, 0), new IntSlope(1, 0), new IntSlope(0, -1), new IntSlope(0, 1) };
-        List<int> basinSizes = new();
-        HashSet<IntPoint> alreadyAdded = new();
+        List<int> basinSizes = [];
+        HashSet<IntPoint> alreadyAdded = [];
         for (int i = 0; i < map.Length; i++)
         {
             for (int j = 0; j < map[i].Length; j++)

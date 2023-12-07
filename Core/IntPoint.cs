@@ -40,7 +40,7 @@ public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
             new IntSlope(1, 1)
         };
 
-        List<IntPoint> neighbors = new();
+        List<IntPoint> neighbors = [];
 
         for (int i = 0; i < slopes.Length; i++)
         {
@@ -63,7 +63,7 @@ public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
             new IntSlope(1, 0)
         };
 
-        List<IntPoint> neighbors = new();
+        List<IntPoint> neighbors = [];
 
         for (int i = 0; i < slopes.Length; i++)
         {
@@ -98,7 +98,7 @@ public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
             new IntSlope(1, 1)
         };
 
-        List<IntPoint> neighbors = new();
+        List<IntPoint> neighbors = [];
 
         for (int i = 0; i < slopes.Length; i++)
         {
@@ -122,7 +122,7 @@ public record struct IntPoint(int X, int Y) : IParsable<IntPoint>
             new IntSlope(1, 0)
         };
 
-        List<IntPoint> neighbors = new();
+        List<IntPoint> neighbors = [];
 
         for (int i = 0; i < slopes.Length; i++)
         {

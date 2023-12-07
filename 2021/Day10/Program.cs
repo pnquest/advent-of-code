@@ -11,7 +11,7 @@ public static class Program
 
     private static void Part2(string[] lines)
     {
-        List<long> completeScores = new();
+        List<long> completeScores = [];
 
         foreach (string line in lines)
         {

@@ -2,7 +2,7 @@
 
 internal abstract class PacketBase
 {
-    public List<PacketBase> InnerPackets { get; set; } = new();
+    public List<PacketBase> InnerPackets { get; set; } = [];
     public uint Version { get; private set; }
     public uint TypeId { get; private set; }
 

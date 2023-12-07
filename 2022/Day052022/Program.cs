@@ -64,7 +64,7 @@ internal class Program
 
     private static void Setup(out Stack<char>[] stacks, out Move[] inst)
     {
-        var stateLines = File.ReadAllLines("./state.txt").Reverse();
+        IEnumerable<string> stateLines = File.ReadAllLines("./state.txt").Reverse();
 
         stacks = new Stack<char>[9];
         for (int i = 0; i < stacks.Length; i++)

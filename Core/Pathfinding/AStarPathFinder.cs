@@ -9,8 +9,8 @@ public class AStarPathFinder<T>
     private readonly Func<AStarNode<T>, AStarNode<T>, IntPoint, int> _actualCost;
     Func<AStarNode<T>, AStarNode<T>, bool> _isPassable;
 
-    private readonly HashSet<AStarSelection<T>> _openList = new();
-    private readonly Dictionary<AStarNode<T>, AStarSelection<T>> _selections = new();
+    private readonly HashSet<AStarSelection<T>> _openList = [];
+    private readonly Dictionary<AStarNode<T>, AStarSelection<T>> _selections = [];
 
     public AStarPathFinder(AStarNode<T>[][] map,
                            IntPoint startPoint,

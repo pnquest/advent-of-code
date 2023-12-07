@@ -3,9 +3,9 @@ public readonly record struct IntRectangle(IntPoint TopLeft, IntPoint TopRight, 
 {
     public IEnumerable<IntPoint> IterateBorder()
     {
-        var topSlope = TopLeft.CalculateUnitDirection(TopRight);
+        IntSlope topSlope = TopLeft.CalculateUnitDirection(TopRight);
         var seen = new HashSet<IntPoint>();
-        var cur = TopLeft;
+        IntPoint cur = TopLeft;
         bool hitEnd = false;
         while(!hitEnd)
         {
@@ -22,7 +22,7 @@ public readonly record struct IntRectangle(IntPoint TopLeft, IntPoint TopRight, 
             cur += topSlope;
         }
 
-        var rightSlope = TopRight.CalculateUnitDirection(BottomRight);
+        IntSlope rightSlope = TopRight.CalculateUnitDirection(BottomRight);
         cur = TopRight;
         hitEnd = false;
 
@@ -41,7 +41,7 @@ public readonly record struct IntRectangle(IntPoint TopLeft, IntPoint TopRight, 
             cur += rightSlope;
         }
 
-        var bottomSlope = BottomRight.CalculateUnitDirection(BottomLeft);
+        IntSlope bottomSlope = BottomRight.CalculateUnitDirection(BottomLeft);
         cur = BottomRight;
         hitEnd = false;
 
@@ -60,7 +60,7 @@ public readonly record struct IntRectangle(IntPoint TopLeft, IntPoint TopRight, 
             cur += bottomSlope;
         }
 
-        var leftSlope = BottomLeft.CalculateUnitDirection(TopLeft);
+        IntSlope leftSlope = BottomLeft.CalculateUnitDirection(TopLeft);
         cur = BottomLeft;
         hitEnd = false;
 
