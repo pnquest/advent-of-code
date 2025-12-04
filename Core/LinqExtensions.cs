@@ -26,6 +26,20 @@ public static class LinqExtensions
         }
     }
 
+    public static IEnumerable<T> Repeat<T>(this IEnumerable<T> input)
+    {
+        var enumerator = input.GetEnumerator();
+        while(true)
+        {
+            while(enumerator.MoveNext())
+            {
+                yield return enumerator.Current;
+            }
+
+            enumerator.Reset();
+        }
+    }
+
     public static IEnumerable<T> Repeat<T>(this IEnumerable<T> input, int times)
     {
         for (int i = 0; i < times; i++)
