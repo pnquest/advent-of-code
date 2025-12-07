@@ -65,9 +65,10 @@ static void Part2()
         bool isMult = grid2[^1][problemStart] == '*';
         long accumulator = isMult ? 1 : 0;
 
+        List<char> chars = [];
         for (int x = problemEnd; x >= problemStart; x--)
         {
-            List<char> chars = [];
+            chars.Clear();
             for (int y = 0; y < grid2.Length - 1; y++)
             {
                 char cur = grid2[y][x];
