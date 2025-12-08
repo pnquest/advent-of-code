@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
@@ -12,6 +13,8 @@ Console.WriteLine($"Part 2: {RunBeams(map, true)}");
 
 static long RunBeams(char[][] map, bool isPart2)
 {
+    var stop = new Stopwatch();
+    stop.Restart();
     Queue<Beam> beams = [];
     Dictionary<BeamLocation, Beam> foundBeams = [];
 
@@ -63,6 +66,10 @@ static long RunBeams(char[][] map, bool isPart2)
     {
         doneCount += beam.Count;
     }
+
+    stop.Stop();
+
+    Console.WriteLine(stop.Elapsed);
 
     if(isPart2)
     {
